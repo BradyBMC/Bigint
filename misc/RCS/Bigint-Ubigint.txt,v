@@ -1,0 +1,133 @@
+head	1.4;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.4
+date	2021.04.07.00.16.11;	author -;	state -;
+branches;
+next	1.3;
+
+1.3
+date	2021.04.06.23.23.29;	author -;	state -;
+branches;
+next	1.2;
+
+1.2
+date	2020.10.07.00.02.40;	author -;	state -;
+branches;
+next	1.1;
+
+1.1
+date	2020.10.06.23.57.51;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.4
+log
+@-
+@
+text
+@
+How to implement bigint using ubigint
+
+a s+ b:
+   if both signs same
+      then
+         call a u+ b
+      else
+         compare the values
+         if a larger than b
+            then a u- b
+            else b u- a
+         sign of result is sign of larger value
+
+a s- b:
+   if signs are different
+      then
+         call a u+ b
+      else
+         if a larger than b
+            then a u- b
+            else b u- a
+         sign is same as larger number
+
+"larger" means larger ubigint value
+u+ and u- refer to ubigint operators
+s+ and s- are bigint operators
+
+Other notes:
+. the sign of 0 is always POSITIVE
+. 0 is represented as a vector of size 0 (empty)
+
+$Id: Bigint-Ubigint.txt,v 1.3 2021-04-06 16:23:29-07 - - $
+@
+
+
+1.3
+log
+@-
+@
+text
+@d30 2
+a31 2
+. the size of 0 is always POSITIVE
+. 0 is represented as a vector of 0 size (empty)
+d33 1
+a33 1
+$Id: Bigint-Ubigint.txt,v 1.2 2020-10-06 17:02:40-07 - - $
+@
+
+
+1.2
+log
+@-
+@
+text
+@d10 1
+a10 1
+         if a bigger than b
+d13 1
+a13 1
+         sign of result is sign of bigger value
+d20 1
+a20 1
+         if a bigger than b
+d23 1
+a23 1
+         sign is same as bigger number
+d25 1
+a25 1
+"bigger" means larger ubigint value
+d29 5
+a33 1
+$Id: Bigint-Ubigint.txt,v 1.1 2020-10-06 16:57:51-07 - - $
+@
+
+
+1.1
+log
+@-
+@
+text
+@d4 1
+a4 1
+a + b:
+d15 1
+a15 1
+a - b:
+d18 1
+a18 1
+         call a ubigint+ b
+d27 1
+d29 1
+a29 1
+$Id$
+@

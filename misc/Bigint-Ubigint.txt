@@ -1,0 +1,33 @@
+
+How to implement bigint using ubigint
+
+a s+ b:
+   if both signs same
+      then
+         call a u+ b
+      else
+         compare the values
+         if a larger than b
+            then a u- b
+            else b u- a
+         sign of result is sign of larger value
+
+a s- b:
+   if signs are different
+      then
+         call a u+ b
+      else
+         if a larger than b
+            then a u- b
+            else b u- a
+         sign is same as larger number
+
+"larger" means larger ubigint value
+u+ and u- refer to ubigint operators
+s+ and s- are bigint operators
+
+Other notes:
+. the sign of 0 is always POSITIVE
+. 0 is represented as a vector of size 0 (empty)
+
+$Id: Bigint-Ubigint.txt,v 1.4 2021-04-06 17:16:11-07 - - $
