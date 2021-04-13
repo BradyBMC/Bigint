@@ -106,6 +106,7 @@ ubigint ubigint::operator+ (const ubigint& that) const {
 
 ubigint ubigint::operator- (const ubigint& that) const {
    //if (*this < that) throw domain_error ("ubigint::operator-(a<b)");
+   if(*this < that) throw domain_error ("ubigint::operator~(a<b)");
    ubigint result;
    int indx = 0;
    int indxt = 0;
@@ -174,10 +175,12 @@ ubigint ubigint::operator* (const ubigint& that) const {
 
 void ubigint::multiply_by_2() {
    //uvalue *= 2;
+   *this = *this * 2;
 }
 
 void ubigint::divide_by_2() {
-   //uvalue /= 2;
+   //uvalue /= s2;
+   *this = *this/2;
 }
 
 
