@@ -39,11 +39,13 @@ bigint bigint::operator+ (const bigint& that) const {
    cout << is_negative << that.is_negative << endl;
    if (is_negative && that.is_negative)
    {
+     cout << "both neg" << endl;
      result = uvalue - that.uvalue;
      return {result,true};
    }
-   else if (is_negative != that.is_negative && uvalue == that.uvalue)
+   else if ((is_negative != that.is_negative) && (uvalue == that.uvalue))
    {
+     cout << "equals zero" << endl;
      result = 0;
      return result;
    }
@@ -57,6 +59,7 @@ bigint bigint::operator+ (const bigint& that) const {
    }
    else if (that.is_negative)
    {
+     cout << "that is neg" << endl;
      result = (that.uvalue > uvalue) ?
               that.uvalue - uvalue : uvalue - that.uvalue;
      b = (that.uvalue > uvalue) ? true : false;
@@ -64,6 +67,7 @@ bigint bigint::operator+ (const bigint& that) const {
    }
    else
    {
+     cout << "both pos" << endl;
      result = uvalue + that.uvalue;
      return result;
    }

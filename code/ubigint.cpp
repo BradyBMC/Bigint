@@ -220,15 +220,17 @@ bool ubigint::operator== (const ubigint& that) const {
    
    if(ubig_value.size() != that.ubig_value.size()) return false;
    int index = ubig_value.size() - 1;
-   while(index > 0) {
+   while(index >= 0) {
        if(ubig_value[index] < that.ubig_value[index]) {
          return false;
        } else if(that.ubig_value[index] < ubig_value[index]) {
          return false;
        }
+       /*
        if(index == 0) {
          return true;
        }
+       */
    }
    return true;
 }
