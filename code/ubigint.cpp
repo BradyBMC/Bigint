@@ -13,7 +13,6 @@ using namespace std;
 #include "ubigint.h"
 
 ubigint::ubigint (unsigned long that) : ubig_value(0) {
-   //cout << that << endl;
    while(that > 0) {
      ubig_value.push_back(that%10);
      that = that/10;
@@ -106,7 +105,12 @@ ubigint ubigint::operator+ (const ubigint& that) const {
 
 ubigint ubigint::operator- (const ubigint& that) const {
    //if (*this < that) throw domain_error ("ubigint::operator-(a<b)");
+   if(*this < that) throw domain_error ("ubigint::operator~(a<b)");
    ubigint result;
+   if(*this == that) {
+     result.ubig_value.push_back(0);
+     return result;
+   }
    int indx = 0;
    int indxt = 0;
    int size = ubig_value.size();
@@ -120,9 +124,6 @@ ubigint ubigint::operator- (const ubigint& that) const {
        carry = false;
      }
      sub = ubig_value[indx] - that.ubig_value[indxt] + sub;
-     //cout << "ubig" << (int)ubig_value[indx] << endl;
-     //cout << "that" << (int)that.ubig_value[indxt] << endl;
-     //cout << sub << endl;
      if(sub < 0) {
        sub += 10;
        carry = true;
@@ -138,7 +139,6 @@ ubigint ubigint::operator- (const ubigint& that) const {
          result.ubig_value.push_back(ubig_value[indx] + 9);
        } else {
          carry = false;
-         //cout << ubig_value[indx] - 1 << endl;
          result.ubig_value.push_back(ubig_value[indx] - 1);
        }
      } else {
@@ -174,10 +174,18 @@ ubigint ubigint::operator* (const ubigint& that) const {
 
 void ubigint::multiply_by_2() {
    //uvalue *= 2;
+   int size = (*this).ubig_value.size();
+   for(int i = 0;i < size;i++) {
+     *this = (*this).ubig_value[i] << 1;
+   }
 }
 
 void ubigint::divide_by_2() {
-   //uvalue /= 2;
+   //uvalue /= s2;
+   int size = (*this).ubig_value.size();
+   for(int i = 0;i < size;i++) {
+     *this = (*this).ubig_value[i] >> 1;
+   }
 }
 
 
@@ -217,43 +225,38 @@ ubigint ubigint::operator% (const ubigint& that) const {
 
 bool ubigint::operator== (const ubigint& that) const {
    //return uvalue == that.uvalue;
-   
-   if(ubig_value.size() != that.ubig_value.size()) return false;
+   if(ubig_value.size() != that.ubig_value.size()) {
+     return false;
+   }
    int index = ubig_value.size() - 1;
-   while(index > 0) {
+   while(index >= 0) {
        if(ubig_value[index] < that.ubig_value[index]) {
          return false;
        } else if(that.ubig_value[index] < ubig_value[index]) {
          return false;
-       }
-       if(index == 0) {
+       } else if(index == 0) {
          return true;
        }
+       index--;
    }
    return true;
 }
 
 bool ubigint::operator< (const ubigint& that) const {
    //return uvalue < that.uvalue;
-   cout << "here" << endl;
    if(ubig_value.size() < that.ubig_value.size()) {
-     cout << "out" << endl;
      return true;
    } else if(ubig_value.size() > that.ubig_value.size()) {
-     cout << "out2" << endl;
      return false;
    } else {
      for(int i = ubig_value.size() - 1;i >= 0;i--) {
        if(ubig_value[i] < that.ubig_value[i]) {
-         cout << "error" << endl;
          return true;
        } else if(ubig_value[i] > that.ubig_value[i]) {
-         cout << "error" << endl;
          return false;
        }
      }
    }
-   //cout << "def" << endl;
    return false;
 }
 
