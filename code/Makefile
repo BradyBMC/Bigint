@@ -6,7 +6,7 @@ NOINCL      = ci clean spotless
 NEEDINCL    = ${filter ${NOINCL}, ${MAKECMDGOALS}}
 GMAKE       = ${MAKE} --no-print-directory
 GPPWARN     = -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast
-GPPOPTS     = ${GPPWARN} -fdiagnostics-color=never
+GPPOPTS     = ${GPPWARN} -fdiagnostics-color=always
 COMPILECPP  = g++ -std=gnu++2a -g -O0 ${GPPOPTS}
 MAKEDEPSCPP = g++ -std=gnu++2a -MM ${GPPOPTS}
 
