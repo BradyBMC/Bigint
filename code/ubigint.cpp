@@ -13,7 +13,6 @@ using namespace std;
 #include "ubigint.h"
 
 ubigint::ubigint (unsigned long that) : ubig_value(0) {
-   //cout << that << endl;
    while(that > 0) {
      ubig_value.push_back(that%10);
      that = that/10;
@@ -175,12 +174,18 @@ ubigint ubigint::operator* (const ubigint& that) const {
 
 void ubigint::multiply_by_2() {
    //uvalue *= 2;
-   *this = (*this).ubig_value[0] * 2;
+   int size = (*this).ubig_value.size();
+   for(int i = 0;i < size;i++) {
+     *this = (*this).ubig_value[i] << 1;
+   }
 }
 
 void ubigint::divide_by_2() {
    //uvalue /= s2;
-   *this = (*this).ubig_value[0]/2;
+   int size = (*this).ubig_value.size();
+   for(int i = 0;i < size;i++) {
+     *this = (*this).ubig_value[i] >> 1;
+   }
 }
 
 
@@ -211,7 +216,6 @@ quo_rem udivide (const ubigint& dividend, const ubigint& divisor_) {
 }
 
 ubigint ubigint::operator/ (const ubigint& that) const {
-   //cout << "here" << endl;
    return udivide (*this, that).quotient;
 }
 

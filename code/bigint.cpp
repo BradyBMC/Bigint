@@ -46,8 +46,6 @@ bigint bigint::operator* (const bigint& that) const {
 }
 
 bigint bigint::operator/ (const bigint& that) const {
-   cout << "her" <<endl;
-   cout << uvalue << endl;
    bigint result = uvalue / that.uvalue;
    return result;
 }
