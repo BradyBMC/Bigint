@@ -253,7 +253,7 @@ bool ubigint::operator< (const ubigint& that) const {
        }
      }
    }
-   cout << "def" << endl;
+   //cout << "def" << endl;
    return false;
 }
 
