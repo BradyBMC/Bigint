@@ -99,7 +99,7 @@ ubigint ubigint::operator+ (const ubigint& that) const {
    if(carry) {
      result.ubig_value.push_back(1);
    }
-   result.multiply_by_2();
+   //result.multiply_by_2();
    //result.divide_by_2();
    //DEBUGF ('u', result);
    return result;
