@@ -298,27 +298,23 @@ bool ubigint::operator< (const ubigint& that) const {
        }
      }
    }
-   /*
-   cout << "here "<<endl;
-   int size = ubig_value.size();
-   cout << size << endl;
-   cout << that.ubig_value.size() << "that"<< endl;
-   for(int i = size - 1;i >= 0;i--) {
-     cout << "ran"<< endl;
-     cout << ubig_value[i];
-   }*/
-   
-   //Returns false if both have size of 0
    return false;
 }
 
 ostream& operator<< (ostream& out, const ubigint& that) { 
    //return out << "ubigint(" << that.uvalue << ")";
    //out << "ubigint(";
+   int cnt = 1;
    for(int i = that.ubig_value.size() - 1;i >= 0;i--) {
      int result = that.ubig_value[i];
-     out << result;
+     if(cnt == 70) 
+     {
+       out << "\\" << "\n" << result;
+       cnt = 1;
+     } else {
+       out << result;
+     }
+     cnt++;
    }
-   //return out <<  ")";
    return out;
 }
