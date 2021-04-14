@@ -36,10 +36,10 @@ bigint bigint::operator+ (const bigint& that) const {
    */
    ubigint result;
    bool b;
-   cout << is_negative << that.is_negative << endl;
+   //cout << is_negative << that.is_negative << endl;
    if (is_negative && that.is_negative)
    {
-     cout << "both neg" << endl;
+     //cout << "both neg" << endl;
      result = uvalue + that.uvalue;
      return {result,true};
    }
@@ -53,7 +53,6 @@ bigint bigint::operator+ (const bigint& that) const {
    */
    else if (is_negative)
    {
-     cout << "is_neg" << endl;
      result = (uvalue > that.uvalue) ?
               uvalue - that.uvalue : that.uvalue - uvalue;
      b = (uvalue > that.uvalue) ? true : false;
@@ -61,7 +60,6 @@ bigint bigint::operator+ (const bigint& that) const {
    }
    else if (that.is_negative)
    {
-     cout << "that is neg" << endl;
      result = (that.uvalue > uvalue) ?
               that.uvalue - uvalue : uvalue - that.uvalue;
      b = (that.uvalue > uvalue) ? true : false;
@@ -69,7 +67,6 @@ bigint bigint::operator+ (const bigint& that) const {
    }
    else
    {
-     cout << "both pos" << endl;
      result = uvalue + that.uvalue;
      return result;
    }
@@ -128,7 +125,10 @@ bool bigint::operator< (const bigint& that) const {
 }
 
 ostream& operator<< (ostream& out, const bigint& that) {
-   return out << "bigint(" << (that.is_negative ? "-" : "+")
-              << "," << that.uvalue << ")";
+   if(that.is_negative) {
+     return out << "-" << that.uvalue;
+   } else {
+     return out << that.uvalue;
+   }
 }
 

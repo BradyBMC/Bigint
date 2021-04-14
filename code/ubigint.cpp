@@ -265,10 +265,11 @@ bool ubigint::operator< (const ubigint& that) const {
 
 ostream& operator<< (ostream& out, const ubigint& that) { 
    //return out << "ubigint(" << that.uvalue << ")";
-   out << "ubigint(";
+   //out << "ubigint(";
    for(int i = that.ubig_value.size() - 1;i >= 0;i--) {
      int result = that.ubig_value[i];
      out << result;
    }
-   return out <<  ")";
+   //return out <<  ")";
+   return out;
 }
