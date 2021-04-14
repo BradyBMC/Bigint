@@ -211,7 +211,7 @@ void ubigint::divide_by_2() {
      }
      uint8_t temp = div + ubig_value[i];
      div = (div + ubig_value[i]) >> 1;
-     if(div == 0 || temp%2 == 1) {
+     if(temp%2 == 1) {
        carry = true;
      }
      ubig_value[i] = div;
@@ -237,27 +237,17 @@ quo_rem udivide (const ubigint& dividend, const ubigint& divisor_) {
    ubigint quotient {0};
    ubigint remainder {dividend}; // left operand, dividend
    while (divisor < remainder) {
-      //cout << "div " <<divisor << endl;
       divisor.multiply_by_2();
-      //cout << "div after" << divisor << endl;
-      //cout << "rem " <<  remainder << endl;
       power_of_2.multiply_by_2();
-      //cout << "power" << endl;
    }
-   cout << "2nd loop" << endl;
    while (power_of_2 > zero) {
       if (divisor <= remainder) {
-         //cout << "divisor" << divisor << endl;
-         //cout << "remainder" << remainder << endl;
          remainder = remainder - divisor;
          quotient = quotient + power_of_2;
       }
       divisor.divide_by_2();
       power_of_2.divide_by_2();
-      //cout << "divisor" << divisor << endl;
-      //cout << "power" << power_of_2 << endl;
    }
-   //cout << "never " << endl;
    DEBUGF ('/', "quotient = " << quotient);
    DEBUGF ('/', "remainder = " << remainder);
    return {.quotient = quotient, .remainder = remainder};
@@ -289,12 +279,6 @@ bool ubigint::operator== (const ubigint& that) const {
        }
        */
        index--;
-   }
-    int size = ubig_value.size();
-
-   for(int i = size - 1;i >= 0;i--) {
-     //cout << "ran"<< endl;
-     cout << ubig_value[i];
    }
    return true;
 }
