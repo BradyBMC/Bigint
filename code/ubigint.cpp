@@ -266,9 +266,19 @@ bool ubigint::operator< (const ubigint& that) const {
 ostream& operator<< (ostream& out, const ubigint& that) { 
    //return out << "ubigint(" << that.uvalue << ")";
    //out << "ubigint(";
+   int cnt = 1;
    for(int i = that.ubig_value.size() - 1;i >= 0;i--) {
      int result = that.ubig_value[i];
-     out << result;
+     if (cnt == 70)
+     {
+       out << "\" << "\n";
+       cnt = 0;
+     }
+     else
+     {
+       out << result;
+     }
+     cnt++;
    }
    //return out <<  ")";
    return out;
