@@ -30,29 +30,88 @@ bigint bigint::operator- () const {
 }
 
 bigint bigint::operator+ (const bigint& that) const {
+   /*
    ubigint result = uvalue + that.uvalue;
    return result;
+   */
+   ubigint result;
+   bool b;
+   //cout << is_negative << that.is_negative << endl;
+   if (is_negative && that.is_negative)
+   {
+     //cout << "both neg" << endl;
+     result = uvalue + that.uvalue;
+     return {result,true};
+   }
+   /*
+ else if ((is_negative != that.is_negative) && (uvalue == that.uvalue))
+   {
+     cout << "equals zero" << endl;
+     result = 0;
+     return result;
+   }
+   */
+   else if (is_negative)
+   {
+     result = (uvalue > that.uvalue) ?
+              uvalue - that.uvalue : that.uvalue - uvalue;
+     b = (uvalue > that.uvalue) ? true : false;
+     return {result,b};
+   }
+   else if (that.is_negative)
+   {
+     result = (that.uvalue > uvalue) ?
+              that.uvalue - uvalue : uvalue - that.uvalue;
+     b = (that.uvalue > uvalue) ? true : false;
+     return {result,b};
+   }
+   else
+   {
+     result = uvalue + that.uvalue;
+     return result;
+   }
 }
 
 bigint bigint::operator- (const bigint& that) const {
+   /*
    ubigint result = uvalue - that.uvalue;
    return result;
+   */
+  bigint result;
+  if(is_negative != that.is_negative) {
+    result = uvalue + that.uvalue;
+    result.is_negative = (is_negative) ? true:false;
+  } else {
+    if(uvalue > that.uvalue) {
+      result = uvalue - that.uvalue;
+      result.is_negative = false;
+    } else {
+      result = that.uvalue - uvalue;
+      result.is_negative = true;
+    }
+    if(uvalue == that.uvalue) {
+      result.is_negative = false;
+    }
+  }
+  return result;
 }
 
 
 bigint bigint::operator* (const bigint& that) const {
-   bigint result = uvalue * that.uvalue;
-   return result;
+  bigint result = uvalue * that.uvalue;
+  result.is_negative = (is_negative == that.is_negative) ? false:true;
+  return result;
 }
 
 bigint bigint::operator/ (const bigint& that) const {
-   bigint result = uvalue / that.uvalue;
-   return result;
+  bigint result = uvalue / that.uvalue;
+  result.is_negative = (is_negative == that.is_negative) ? false:true;
+  return result;
 }
 
 bigint bigint::operator% (const bigint& that) const {
-   bigint result = uvalue % that.uvalue;
-   return result;
+  bigint result = uvalue % that.uvalue;
+  return result;
 }
 
 bool bigint::operator== (const bigint& that) const {
@@ -66,7 +125,10 @@ bool bigint::operator< (const bigint& that) const {
 }
 
 ostream& operator<< (ostream& out, const bigint& that) {
-   return out << "bigint(" << (that.is_negative ? "-" : "+")
-              << "," << that.uvalue << ")";
+   if(that.is_negative) {
+     return out << "-" << that.uvalue;
+   } else {
+     return out << that.uvalue;
+   }
 }
 
