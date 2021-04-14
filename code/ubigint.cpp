@@ -236,7 +236,7 @@ bool ubigint::operator== (const ubigint& that) const {
          return false;
        }
        /*
-       if(index == 0) {
+       else if(index == 0) {
          return true;
        }
        */
