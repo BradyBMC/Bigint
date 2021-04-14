@@ -99,6 +99,8 @@ ubigint ubigint::operator+ (const ubigint& that) const {
    if(carry) {
      result.ubig_value.push_back(1);
    }
+   result.multiply_by_2();
+   //result.divide_by_2();
    //DEBUGF ('u', result);
    return result;
 }
@@ -146,7 +148,9 @@ ubigint ubigint::operator- (const ubigint& that) const {
      }
      indx++;
    }
-   while(result.ubig_value.size() > 0 and result.ubig_value.back() == 0) result.ubig_value.pop_back();
+   while(result.ubig_value.size() > 0 &&result.ubig_value.back() ==0){
+     result.ubig_value.pop_back();
+   }
    return result;
 }
 
@@ -159,13 +163,14 @@ ubigint ubigint::operator* (const ubigint& that) const {
    for(int i = 0;i < size;i++) {
      uint8_t c = 0;
      for(int j = 0;j < sizet;j++) {
-       uint8_t total = result.ubig_value[i+j] + ubig_value[i] * that.ubig_value[j] + c;
+       uint8_t total = result.ubig_value[i+j];
+       total = total + ubig_value[i] * that.ubig_value[j] + c;
        result.ubig_value[i+j] = total % 10;
        c = total/10;
      }
      result.ubig_value[i+that.ubig_value.size()] += c;
    }
-   while(result.ubig_value.size() > 0 and result.ubig_value.back() == 0){
+   while(result.ubig_value.size() > 0 &&result.ubig_value.back() == 0){
      result.ubig_value.pop_back();
    }
    return result;
@@ -174,17 +179,50 @@ ubigint ubigint::operator* (const ubigint& that) const {
 
 void ubigint::multiply_by_2() {
    //uvalue *= 2;
-   int size = (*this).ubig_value.size();
+   int size = ubig_value.size();
+   bool carry = false;
    for(int i = 0;i < size;i++) {
-     *this = (*this).ubig_value[i] << 1;
+     uint8_t dub = 0;
+     if(carry) {
+       dub = 1;
+       carry = false;
+     }
+     dub = dub + (ubig_value[i] << 1);
+     if(dub > 9) {
+       dub -= 10;
+       carry = true;
+     }
+     ubig_value[i] = dub;
+   }
+   if(carry) {
+       ubig_value.push_back(1);
    }
 }
 
 void ubigint::divide_by_2() {
    //uvalue /= s2;
-   int size = (*this).ubig_value.size();
-   for(int i = 0;i < size;i++) {
-     *this = (*this).ubig_value[i] >> 1;
+   int size = ubig_value.size();
+   bool carry = false;
+   for(int i = size - 1;i > 0;i--) {
+     uint8_t div = 0;
+     if(carry) {
+       div = 10;
+       carry = false;
+     }
+     uint8_t temp = div + ubig_value[i];
+     div = (div + ubig_value[i]) >> 1;
+     if(div == 0 || temp%2 == 1) {
+       carry = true;
+     }
+     ubig_value[i] = div;
+   }
+   if(carry) {
+     ubig_value[0] = (ubig_value[0] + 10) >> 1;
+   } else {
+     ubig_value[0] = (ubig_value[0]) >> 1;
+   }
+   while(ubig_value.size() > 0 && ubig_value.back() == 0){
+     ubig_value.pop_back();
    }
 }
 
@@ -199,17 +237,27 @@ quo_rem udivide (const ubigint& dividend, const ubigint& divisor_) {
    ubigint quotient {0};
    ubigint remainder {dividend}; // left operand, dividend
    while (divisor < remainder) {
+      //cout << "div " <<divisor << endl;
       divisor.multiply_by_2();
+      //cout << "div after" << divisor << endl;
+      //cout << "rem " <<  remainder << endl;
       power_of_2.multiply_by_2();
+      //cout << "power" << endl;
    }
+   cout << "2nd loop" << endl;
    while (power_of_2 > zero) {
       if (divisor <= remainder) {
+         //cout << "divisor" << divisor << endl;
+         //cout << "remainder" << remainder << endl;
          remainder = remainder - divisor;
          quotient = quotient + power_of_2;
       }
       divisor.divide_by_2();
       power_of_2.divide_by_2();
+      //cout << "divisor" << divisor << endl;
+      //cout << "power" << power_of_2 << endl;
    }
+   //cout << "never " << endl;
    DEBUGF ('/', "quotient = " << quotient);
    DEBUGF ('/', "remainder = " << remainder);
    return {.quotient = quotient, .remainder = remainder};
@@ -242,6 +290,12 @@ bool ubigint::operator== (const ubigint& that) const {
        */
        index--;
    }
+    int size = ubig_value.size();
+
+   for(int i = size - 1;i >= 0;i--) {
+     //cout << "ran"<< endl;
+     cout << ubig_value[i];
+   }
    return true;
 }
 
@@ -260,6 +314,17 @@ bool ubigint::operator< (const ubigint& that) const {
        }
      }
    }
+   /*
+   cout << "here "<<endl;
+   int size = ubig_value.size();
+   cout << size << endl;
+   cout << that.ubig_value.size() << "that"<< endl;
+   for(int i = size - 1;i >= 0;i--) {
+     cout << "ran"<< endl;
+     cout << ubig_value[i];
+   }*/
+   
+   //Returns false if both have size of 0
    return false;
 }
 
