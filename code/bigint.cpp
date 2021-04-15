@@ -86,10 +86,6 @@ bigint bigint::operator+ (const bigint& that) const {
 }
 
 bigint bigint::operator- (const bigint& that) const {
-   /*
-   ubigint result = uvalue - that.uvalue;
-   return result;
-   */
   bigint result;
   if(is_negative != that.is_negative) {
     result = uvalue + that.uvalue;
