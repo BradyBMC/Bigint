@@ -30,27 +30,13 @@ bigint bigint::operator- () const {
 }
 
 bigint bigint::operator+ (const bigint& that) const {
-   /*
-   ubigint result = uvalue + that.uvalue;
-   return result;
-   */
    ubigint result;
    bool b;
-   //cout << is_negative << that.is_negative << endl;
    if (is_negative && that.is_negative)
    {
-     //cout << "both neg" << endl;
      result = uvalue + that.uvalue;
      return {result,true};
    }
-   /*
- else if ((is_negative != that.is_negative) && (uvalue == that.uvalue))
-   {
-     cout << "equals zero" << endl;
-     result = 0;
-     return result;
-   }
-   */
    else if (is_negative)
    {
      result = (uvalue > that.uvalue) ?
@@ -73,10 +59,6 @@ bigint bigint::operator+ (const bigint& that) const {
 }
 
 bigint bigint::operator- (const bigint& that) const {
-   /*
-   ubigint result = uvalue - that.uvalue;
-   return result;
-   */
   bigint result;
   if(is_negative != that.is_negative) {
     result = uvalue + that.uvalue;

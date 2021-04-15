@@ -13,23 +13,17 @@ using namespace std;
 #include "ubigint.h"
 
 ubigint::ubigint (unsigned long that) : ubig_value(0) {
+   if(that == 0) {
+     ubig_value.push_back(0);
+   }
    while(that > 0) {
      ubig_value.push_back(that%10);
      that = that/10;
    }
-   //DEBUGF ('~', this << " -> " << ubig_value.back)
 }
 
 ubigint::ubigint (const string& that) : ubig_value(0){
    DEBUGF ('~', "that = \"" << that << "\"");
-   /*
-   for (char digit: that) {
-      if (not isdigit (digit)) {
-         throw invalid_argument ("ubigint::ubigint(" + that + ")");
-      }
-      uvalue = uvalue * 10 + digit - '0';
-   }
-   */
    for(auto it = that.crbegin(); it != that.crend();it++) {
       if(not isdigit(*it)) {
         throw invalid_argument ("ubigint:: ubigint(" + that + ")");
@@ -38,12 +32,9 @@ ubigint::ubigint (const string& that) : ubig_value(0){
    }
 }
 
-//May crap out if one number is actually negative
 ubigint ubigint::operator+ (const ubigint& that) const {
    DEBUGF ('u', *this << "+" << that);
-   //ubigint result (uvalue + that.uvalue);
    ubigint result;
-   //Index for that
    int indxt = 0;
    int indx = 0;
    int size = ubig_value.size();
@@ -99,14 +90,10 @@ ubigint ubigint::operator+ (const ubigint& that) const {
    if(carry) {
      result.ubig_value.push_back(1);
    }
-   //result.multiply_by_2();
-   //result.divide_by_2();
-   //DEBUGF ('u', result);
    return result;
 }
 
 ubigint ubigint::operator- (const ubigint& that) const {
-   //if (*this < that) throw domain_error ("ubigint::operator-(a<b)");
    if(*this < that) throw domain_error ("ubigint::operator~(a<b)");
    ubigint result;
    if(*this == that) {
@@ -174,11 +161,9 @@ ubigint ubigint::operator* (const ubigint& that) const {
      result.ubig_value.pop_back();
    }
    return result;
-   //return ubigint (uvalue * that.uvalue);
 }
 
 void ubigint::multiply_by_2() {
-   //uvalue *= 2;
    int size = ubig_value.size();
    bool carry = false;
    for(int i = 0;i < size;i++) {
@@ -200,7 +185,6 @@ void ubigint::multiply_by_2() {
 }
 
 void ubigint::divide_by_2() {
-   //uvalue /= s2;
    int size = ubig_value.size();
    bool carry = false;
    for(int i = size - 1;i > 0;i--) {
@@ -262,7 +246,6 @@ ubigint ubigint::operator% (const ubigint& that) const {
 }
 
 bool ubigint::operator== (const ubigint& that) const {
-   //return uvalue == that.uvalue;
    if(ubig_value.size() != that.ubig_value.size()) {
      return false;
    }
@@ -273,18 +256,13 @@ bool ubigint::operator== (const ubigint& that) const {
        } else if(that.ubig_value[index] < ubig_value[index]) {
          return false;
        }
-       /*
-       else if(index == 0) {
-         return true;
-       }
-       */
        index--;
    }
+   cout << "here" << endl;
    return true;
 }
 
 bool ubigint::operator< (const ubigint& that) const {
-   //return uvalue < that.uvalue;
    if(ubig_value.size() < that.ubig_value.size()) {
      return true;
    } else if(ubig_value.size() > that.ubig_value.size()) {
@@ -302,8 +280,6 @@ bool ubigint::operator< (const ubigint& that) const {
 }
 
 ostream& operator<< (ostream& out, const ubigint& that) { 
-   //return out << "ubigint(" << that.uvalue << ")";
-   //out << "ubigint(";
    int cnt = 1;
    for(int i = that.ubig_value.size() - 1;i >= 0;i--) {
      int result = that.ubig_value[i];
