@@ -15,9 +15,6 @@ using namespace std;
 #include "ubigint.h"
 
 ubigint::ubigint (unsigned long that) : ubig_value(0) {
-   if(that == 0) {
-     ubig_value.push_back(0);
-   }
    while(that > 0) {
      ubig_value.push_back(that%10);
      that = that/10;
@@ -31,6 +28,9 @@ ubigint::ubigint (const string& that) : ubig_value(0){
         throw invalid_argument ("ubigint:: ubigint(" + that + ")");
       }
       ubig_value.push_back(*it - '0');
+   }
+   while(ubig_value.size() > 0 && ubig_value.back() == 0){
+     ubig_value.pop_back();
    }
 }
 
@@ -97,9 +97,8 @@ ubigint ubigint::operator+ (const ubigint& that) const {
 
 ubigint ubigint::operator- (const ubigint& that) const {
    if(*this < that) throw domain_error ("ubigint::operator~(a<b)");
-   ubigint result;
+   ubigint result {0};
    if(*this == that) {
-     result.ubig_value.push_back(0);
      return result;
    }
    int indx = 0;
@@ -292,6 +291,9 @@ ostream& operator<< (ostream& out, const ubigint& that) {
        out << result;
      }
      cnt++;
+   }
+   if(that.ubig_value.size() == 0) {
+     out << "0";
    }
    return out;
 }
