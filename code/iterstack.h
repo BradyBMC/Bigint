@@ -1,4 +1,7 @@
 // $Id: iterstack.h,v 1.1 2019-12-12 18:19:23-08 - - $
+// Evan Clark Brady Chan
+// 4/15/21
+// Bigint
 
 // 
 // The class std::stack does not provide an iterator, which is

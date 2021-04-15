@@ -1,4 +1,7 @@
 // $Id: util.cpp,v 1.2 2019-12-12 19:22:40-08 - - $
+// Evan Clark Brady Chan
+// 4/15/21
+// Bigint
 
 #include <cstring>
 using namespace std;
