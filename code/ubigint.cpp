@@ -1,5 +1,7 @@
 // $Id: ubigint.cpp,v 1.12 2020-10-19 13:14:59-07 - - $
-
+// Evan Clark Brady Chan
+// 4/15/21
+// Bigint
 #include <cctype>
 #include <cstdlib>
 #include <exception>

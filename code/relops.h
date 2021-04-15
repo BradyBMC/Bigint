@@ -1,4 +1,7 @@
 // $Id: relops.h,v 1.1 2019-12-12 18:19:23-08 - - $
+// Evan Clark Brady Chan
+// 4/15/21
+// Bigint
 
 //
 // Assuming that for any given type T, there are operators
