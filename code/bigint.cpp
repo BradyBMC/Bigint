@@ -38,25 +38,17 @@ bigint bigint::operator+ (const bigint& that) const {
    ubigint result;
    bool b;
    bigint larger;
-   if (!(is_negative != that.is_negative))
-   {
+   if (!(is_negative != that.is_negative)) {
      result = uvalue + that.uvalue;
      b = is_negative;
-   }
-   else 
-   {
-     if (uvalue == that.uvalue)
-     {
+   } else {
+     if (uvalue == that.uvalue) {
        result = uvalue - that.uvalue;
        b = false;
-     }
-     else if (uvalue > that.uvalue)
-     {
+     } else if (uvalue > that.uvalue) {
        result = uvalue - that.uvalue;
        b = is_negative;
-     }
-     else
-     {
+     } else {
        result = that.uvalue - uvalue;
        b = that.is_negative;
      }
