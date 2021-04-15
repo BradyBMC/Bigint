@@ -1,9 +1,14 @@
-head	1.5;
+head	1.6;
 access;
 symbols;
 locks;
 comment	@ * @;
 
+
+1.6
+date	2021.04.14.20.24.23;	author -;	state -;
+branches;
+next	1.5;
 
 1.5
 date	2020.10.11.19.25.22;	author -;	state -;
@@ -35,12 +40,12 @@ desc
 @@
 
 
-1.5
+1.6
 log
 @-
 @
 text
-@// $Id: ubigint.h,v 1.4 2020-01-06 13:39:55-08 - - $
+@// $Id: ubigint.h,v 1.5 2020-10-11 12:25:22-07 - - $
 
 #ifndef __UBIGINT_H__
 #define __UBIGINT_H__
@@ -49,6 +54,7 @@ text
 #include <iostream>
 #include <limits>
 #include <utility>
+#include <vector>
 using namespace std;
 
 #include "debug.h"
@@ -56,8 +62,8 @@ using namespace std;
 class ubigint {
    friend ostream& operator<< (ostream&, const ubigint&);
    private:
-      using unumber = unsigned long;
-      unumber uvalue {};
+      using ubigvalue_t = vector<uint8_t>;
+      ubigvalue_t ubig_value {};
    public:
       void multiply_by_2();
       void divide_by_2();
@@ -78,6 +84,22 @@ class ubigint {
 
 #endif
 
+@
+
+
+1.5
+log
+@-
+@
+text
+@d1 1
+a1 1
+// $Id: ubigint.h,v 1.4 2020-01-06 13:39:55-08 - - $
+d10 1
+d18 2
+a19 2
+      using unumber = unsigned long;
+      unumber uvalue {};
 @
 
 

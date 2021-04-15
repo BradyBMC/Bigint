@@ -336,7 +336,7 @@ ostream& operator<< (ostream& out, const ubigint& that) {
      int result = that.ubig_value[i];
      if (cnt == 70)
      {
-       out << "\" << "\n";
+       out << "\\" << endl;
        cnt = 0;
      }
      else
