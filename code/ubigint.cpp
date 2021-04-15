@@ -258,7 +258,6 @@ bool ubigint::operator== (const ubigint& that) const {
        }
        index--;
    }
-   cout << "here" << endl;
    return true;
 }
 
