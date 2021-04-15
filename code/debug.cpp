@@ -1,5 +1,7 @@
 // $Id: debug.cpp,v 1.2 2021-03-31 19:46:57-07 - - $
-
+// Evan Clark Brady Chan
+// 4/15/21
+// Bigint
 #include <climits>
 #include <iostream>
 #include <vector>

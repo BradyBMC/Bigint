@@ -18,11 +18,14 @@ together. Both of us know the format of the PARTNER file.
 
 DESCRIPTION
 
-This program recreates the the dc mathematical operations program. It utilizes a stack to store numbers, and Reverse Polish Notation to operate on given values. 
+This program recreates the the dc mathematical operations program. 
+It utilizes a stack to store numbers, and Reverse Polish Notation 
+to operate on given values. 
 
 USAGE
 
 Running 'make' or 'make all' will compile the program. 
-Running 'ydc' will execute the program and input will be the same as the dc program.. Refer to the dc man page for more info.
+Running 'ydc' will execute the program and input will be the same 
+as the dc program.. Refer to the dc man page for more info.
 Running 'make clean' will remove all binaries. 
 Running 'make spotless' will remove all binary files and ydc. 
