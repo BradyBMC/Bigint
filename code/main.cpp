@@ -1,5 +1,7 @@
 // $Id: main.cpp,v 1.3 2021-03-26 15:29:03-07 - - $
-
+// Evan Clark Brady Chan
+// 4/15/21
+// Bigint
 #include <cassert>
 #include <deque>
 #include <iostream>
